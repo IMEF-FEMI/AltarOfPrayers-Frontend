@@ -1,0 +1,24 @@
+export const LOADING = "LOADING";
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const SET_ERROR = "SET_ERROR";
+export const CLEAR_ERROR = "CLEAR_ERROR";
+export const ENQUEUE_SNACKBAR = "ENQUEUE_SNACKBAR";
+export const CLOSE_SNACKBAR = "CLOSE_SNACKBAR";
+export const REMOVE_SNACKBAR = "REMOVE_SNACKBAR";
+export const LOAD_EDITIONS = "LOAD_EDITIONS";
+export const LOAD_SEARCH_EDITIONS = "LOAD_SEARCH_EDITIONS";
+export const CLEAR_SEARCH = "CLEAR_SEARCH";
+export const ADD_EDITION = "ADD_EDITION";
+export const SET_COUNT = "SET_COUNT";
+export const INITIAL_FETCH = "INITIAL_FETCH";
+export const FETCHING = "FETCHING";
+export const UPDATE_EDITION = "UPDATE_EDITION";
+export const DELETE_EDITION = "DELETE_EDITION";
+
+export const LOAD_USERS = "LOAD_USERS";
+export const SET_USER_COUNT = "SET_USER_COUNT";
+export const SET_PAGE = "SET_PAGE";
+export const DELETE_USER = "DELETE_USER";
+export const UPDATE_USER = "UPDATE_USER";
+export const LOAD_SEARCH_USERS = "LOAD_SEARCH_USERS";
+export const CLEAR_SEARCH_USERS = "CLEAR_SEARCH_USERS";

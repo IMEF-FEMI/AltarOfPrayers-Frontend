@@ -1,13 +1,120 @@
+html {
+	/* background-color: #f1f1f1; */
+	font-size: 16px;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	min-width: 300px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	text-rendering: optimizeLegibility;
+	-webkit-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+html,
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	margin: 0;
+	padding: 0;
+	height: 100%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#root {
+	min-height: 100%;
+	position: relative;
+	/* background-color: #1b1b1b; */
+	background-color: #f4f6f8;
 }
+
+
+#container {
+	padding-bottom: 118px; /* Height of the footer */
+}
+
+/* Fixes double underline in TextFields */
+input:not([type]),
+input[type=text]:not(.browser-default),
+input[type=password]:not(.browser-default),
+input[type=email]:not(.browser-default),
+input[type=url]:not(.browser-default),
+input[type=time]:not(.browser-default),
+input[type=date]:not(.browser-default),
+input[type=datetime]:not(.browser-default),
+input[type=datetime-local]:not(.browser-default),
+input[type=tel]:not(.browser-default),
+input[type=number]:not(.browser-default),
+input[type=search]:not(.browser-default),
+.materialize-textarea {
+	margin: 0 0 0 0 !important;
+	border-bottom: none !important;
+	box-shadow: none !important;
+	/* margin-left: 2; */
+}
+
+
+#testimonials {
+	background: #1F1F1F url(./images/testimonials-bg.jpg) no-repeat center center;
+	background-size: cover !important;
+	 -webkit-background-size: cover !important;
+	background-attachment: fixed;
+ 
+	position: relative;
+	min-height: 200px;
+	width: 100%;
+	overflow: hidden;
+ }
+ #testimonials .text-container {
+	padding-top: 50px;
+	padding-bottom: 118px;
+ }
+ #testimonials h1 {
+	font: 18px/24px 'opensans-bold', sans-serif;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	color: #fff;
+ }
+ #testimonials h1 span { display: none; }
+ #testimonials .header-col { padding-top: 9px; }
+ #testimonials .header-col h1:before {
+	font-family: 'FontAwesome';
+	content: "\f10d";
+	 padding-right: 10px;
+	 font-size: 72px;
+	line-height: 72px;
+	text-align: left;
+	float: left;
+	color: #fff;
+ }
+ 
+ /*	Blockquotes */
+ blockquote {
+	border-left: none;
+ }
+ #testimonials blockquote {
+	border-left: none;
+	margin: 0 0px 30px 0px;
+	padding-left: 0;
+	position: relative;
+	text-shadow: 0px 1px 3px rgba(0, 0, 0, 1);
+ }
+ 
+ #testimonials blockquote:before { content: none; }
+ #testimonials blockquote p {
+	font-family: 'librebaskerville-italic', serif;
+	padding: 0;
+	font-size: 24px;
+	line-height: 48px;
+	color: #fff
+ }
+ #testimonials blockquote cite {
+	display: block;
+	font-size: 12px;
+	font-style: normal;
+	line-height: 18px;
+	color: #fff;
+ }
+ #testimonials blockquote cite:before { content: "\2014 \0020"; }
+ #testimonials blockquote cite a,
+ #testimonials blockquote cite a:visited { color: #8B9798; border: none }
+ 
+ 
