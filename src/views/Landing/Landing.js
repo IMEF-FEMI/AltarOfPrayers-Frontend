@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Heading from './Heading'
 import Mission from './Mission'
 import Testimonials from './Testimonials'
+import About from './About'
 
 class Landing extends Component{
 
@@ -9,6 +10,7 @@ class Landing extends Component{
     return(
       <div>
         <Heading/>
+        <About/>
         <Mission/>
         <Testimonials/>
       </div>

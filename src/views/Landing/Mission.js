@@ -49,13 +49,13 @@ const Mission = ({ classes }) => {
       <main className={classes.main}>
         <h3 className={classes.about}>Mission</h3>
         <div className="container">
-          <blockquote className={classes.blockquote}>
+          <div className={classes.blockquote}>
             <p className={classes.text}>
               To build a consistent and effective prayer life without struggle
             </p>
             <p className={classes.text}>To set the captive free Restore hope to the hopeless</p>
             <p className={classes.text}>Set many feet on the pedestal of success</p>
-          </blockquote>
+          </div>
         </div>
       </main>
     </div>
