@@ -21,6 +21,11 @@ const routes = [
     name: "Users",
     component: Users,
   },
+  {
+    path: "/notifications",
+    name: "Notifications",
+    component: "Notifications",
+  },
 ];
 
 export default routes;

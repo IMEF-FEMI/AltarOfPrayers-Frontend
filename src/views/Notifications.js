@@ -1,41 +1,18 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import clsx from "clsx";
-import {lighten} from "@material-ui/core/styles";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import Dialog from "@material-ui/core/Dialog";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Checkbox from "@material-ui/core/Checkbox";
-import IconButton from "@material-ui/core/IconButton";
-import Tooltip from "@material-ui/core/Tooltip";
-import DeleteIcon from "@material-ui/icons/Delete";
-import FilterListIcon from "@material-ui/icons/FilterList";
-import { connect } from "react-redux";
-import * as actions from "../../redux";
-import moment from "moment";
-import DeleteUserDialog from '../../components/DeleteUserDialog'
+import TableCell from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableHead";
+import TableCell from "@material-ui/core/Checkbox";
+import { Table } from "@material-ui/core";
 
 const headCells = [
-  { id: "Name", numeric: false, disablePadding: true, label: "Name" },
-  { id: "Email", numeric: true, disablePadding: false, label: "Email" },
+  { id: "Title", numeric: false, disablePAdding: true, label: "Title" },
+  { id: "Message", numeric: false, disablePAdding: false, label: "Message" },
   {
-    id: "Date Registered",
-    numeric: true,
-    disablePadding: false,
-    label: "Date Registered",
+    id: "Created At",
+    numeric: false,
+    disablePAdding: false,
+    label: "Created At",
   },
-  { id: "Admin", numeric: true, disablePadding: false, label: "Admin" },
 ];
 
 function EnhancedTableHead(props) {
@@ -45,19 +22,9 @@ function EnhancedTableHead(props) {
         <TableCell padding="checkbox">
           <Checkbox
             indeterminate={true}
-            inputProps={{ "aria-label": "select all users" }}
+            inputProps={{ "aria-label": "select all notifications" }}
           />
         </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
-            padding={headCell.disablePadding ? "none" : "default"}
-            sortDirection={false}
-          >
-            {headCell.label}
-          </TableCell>
-        ))}
       </TableRow>
     </TableHead>
   );
@@ -103,7 +70,7 @@ const EnhancedTableToolbar = (props) => {
           variant="subtitle1"
           component="div"
         >
-          {selected.fullname} selected
+          {selected.title}
         </Typography>
       ) : (
         <Typography
@@ -112,26 +79,12 @@ const EnhancedTableToolbar = (props) => {
           id="tableTitle"
           component="div"
         >
-          Users
+          Notifications
         </Typography>
       )}
 
       {!isEmpty ? (
         <Grid item>
-          <Button
-            variant="outlined"
-            size="small"
-            color={selected.admin ? "secondary" : "primary"}
-            className={classes.margin}
-            disabled={props.user.email === selected.email}
-            onClick={() => {
-              selected.admin
-                ? props.removeAdmin({ email: selected.email })
-                : props.makeAdmin({ email: selected.email });
-            }}
-          >
-            {selected.admin ? "Remove Admin" : "Make Admin"}
-          </Button>
           <Tooltip title="Delete">
             <span>
               <IconButton
@@ -146,18 +99,22 @@ const EnhancedTableToolbar = (props) => {
           </Tooltip>
         </Grid>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
+        <Grid item>
+          <Button
+            variant="outlined"
+            size="small"
+            color={selected.admin ? "secondary" : "primary"}
+            className={classes.margin}
+            onClick={() => {
+              props.addNotification();
+            }}
+          >
+            Add New
+          </Button>
+        </Grid>
       )}
     </Toolbar>
   );
-};
-
-EnhancedTableToolbar.propTypes = {
-  selected: PropTypes.object.isRequired,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -185,9 +142,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function UsersMain(props) {
-  const { rowsPerPage, userList, userCount } = props.users;
-  const { fetchUsers, setCount } = props;
+function NotificationPage(props) {
+  const { rowsPerPage, notificationList, notificationsCount } = props.users;
+  const { fetchNotifications, setCount } = props;
   const classes = useStyles();
   const [selected, setSelected] = React.useState({});
   const [page, setPage] = React.useState(0);
@@ -195,13 +152,13 @@ function UsersMain(props) {
 
   useEffect(() => {
     async function fetchData() {
-      if (userList.length === 0) {
-        await fetchUsers({ first: 10 });
+      if (notificationList.length === 0) {
+        await fetchNotifications({ first: 10 });
         await setCount();
       }
     }
     fetchData();
-  }, [userList, fetchUsers, setCount]);
+  }, [notificationList, fetchNotifications, setCount]);
 
   const handleOpen = (data) => {
     setOpen(true);
@@ -215,9 +172,10 @@ function UsersMain(props) {
     }
     setSelected(row);
   };
+
   const handleChangePage = async (event, newPage) => {
-    if (userList.length < (newPage + 1) * rowsPerPage)
-      await props.fetchUsers({
+    if (notificationList.length < (newPage + 1) * rowsPerPage)
+      await props.fetchNotifications({
         first: rowsPerPage,
         skip: (newPage + 1) * rowsPerPage,
       });
@@ -226,18 +184,9 @@ function UsersMain(props) {
 
   const isSelected = (id) => selected.id === id;
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, userList.length - page * rowsPerPage);
-  const makeAdmin = (variables) => {
-    props.makeAdmin(variables);
-  };
-  const removeAdmin = (variables) => {
-    props.removeAdmin(variables);
-  };
+    rowsPerPage -
+    Math.min(rowsPerPage, notificationList.length - page * rowsPerPage);
 
-  const deleteUser = ()=>{
-    props.deleteUser({email: selected.email})
-  }
-  
   return (
     <div className="container">
       <Dialog
@@ -245,14 +194,13 @@ function UsersMain(props) {
         onClose={handleClose}
         aria-labelledby="delete-confirmation"
       >
-        <DeleteUserDialog deleteUser={deleteUser} handleClose={handleClose}  />
+        {/* <DeleteUserDialog deleteUser={deleteUser} handleClose={handleClose}  /> */}
       </Dialog>
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <EnhancedTableToolbar
-            user={props.auth.user}
             selected={selected}
-            makeAdmin={makeAdmin}
+            addNotification={addNotification}
             removeAdmin={removeAdmin}
             handleOpen={handleOpen}
           />
@@ -265,11 +213,10 @@ function UsersMain(props) {
             >
               <EnhancedTableHead
                 classes={classes}
-                selectedName={selected.fullname}
-                rowCount={userCount}
+                rowCount={notificationsCount}
               />
               <TableBody>
-                {userList
+                {notificationList
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
                     const isItemSelected = isSelected(row.id);
@@ -297,14 +244,11 @@ function UsersMain(props) {
                           scope="row"
                           padding="none"
                         >
-                          {row.fullname}
+                          {row.title}
                         </TableCell>
-                        <TableCell align="right">{row.email}</TableCell>
+                        <TableCell align="right">{row.message}</TableCell>
                         <TableCell align="right">
                           {moment(row.createdAt).format("DD/MM/YYYY")}
-                        </TableCell>
-                        <TableCell align="right">
-                          {row.admin ? "Yes" : "No"}
                         </TableCell>
                       </TableRow>
                     );
@@ -319,7 +263,7 @@ function UsersMain(props) {
           </TableContainer>
           <TablePagination
             component="div"
-            count={userCount}
+            count={notificationsCount}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}
@@ -329,17 +273,20 @@ function UsersMain(props) {
     </div>
   );
 }
+
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  users: state.users,
+  notifications: state.notifications,
 });
 const mapActionsToProps = (dispatch) => {
   return {
-    fetchUsers: (variables) => dispatch(actions.loadUsers(variables)),
-    setCount: () => dispatch(actions.setUsersCount()),
-    makeAdmin: (variables) => dispatch(actions.makeUserAdmin(variables)),
-    removeAdmin: (variables) => dispatch(actions.removeUserAdmin(variables)),
-    deleteUser: (variables) => dispatch(actions.removeUser(variables)),
+    fetchNotifications: (variables) =>
+      dispatch(actions.loadNotifications(variables)),
+    setCount: () => dispatch(actions.setNotificationsCount()),
+    addNotification: (variables) =>
+      dispatch(actions.addNotification(variables)),
+    deleteNotification: (variables) =>
+      dispatch(actions.removeNotification(variables)),
   };
 };
-export default connect(mapStateToProps, mapActionsToProps)(UsersMain);
+export default connect(mapStateToProps, mapActionsToProps)(NotificationPage);
