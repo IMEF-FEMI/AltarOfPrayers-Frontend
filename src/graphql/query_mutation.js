@@ -156,6 +156,7 @@ export const getUsersCount = gql`
     usersCount
   }
 `;
+
 export const users = gql`
   query users($search: String, $first: Int, $skip: Int) {
     users(search: $search, first: $first, skip: $skip) {
@@ -168,6 +169,43 @@ export const users = gql`
   }
 `;
 
+export const adminNotifications = gql`
+  query adminNotifications($search: String, $first: Int, $skip: Int) {
+    adminNotifications(search: $search, first: $first, skip: $skip) {
+      id
+      title
+      message
+      createdAt
+    }
+  }
+`;
+export const createNotification = gql`
+  mutation createNotification($title: String!, $message: String!) {
+    createNotification(title: $title, message: $message) {
+      success
+      error
+      notification{
+        id
+        title
+        message
+        createdAt
+      }
+    }
+  }
+`;
+export const deleteNotification = gql`
+  mutation deleteNotification($id: Int!) {
+    deleteNotification(id: $id) {
+      success
+      error
+    }
+  }
+`;
+export const getNotificationsCount = gql`
+  query {
+    getNotificationsCount
+  }
+`;
 export const makeAdmin = gql`
   mutation makeAdmin($email: String!) {
     makeAdmin(email: $email) {

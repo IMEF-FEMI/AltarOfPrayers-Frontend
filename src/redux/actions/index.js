@@ -1,5 +1,6 @@
 export * from './types'
 export * from './authActions'
 export * from './notificationAction'
+export * from './notificationsPageAction'
 export * from './editionActions'
 export * from './usersAction'

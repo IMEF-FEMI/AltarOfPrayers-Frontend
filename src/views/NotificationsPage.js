@@ -1,16 +1,35 @@
+import React, { useEffect } from "react";
+import clsx from "clsx";
+import { lighten } from "@material-ui/core/styles";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import Dialog from "@material-ui/core/Dialog";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
-import TableCell from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableHead";
-import TableCell from "@material-ui/core/Checkbox";
-import { Table } from "@material-ui/core";
+import TablePagination from "@material-ui/core/TablePagination";
+import TableRow from "@material-ui/core/TableRow";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Checkbox from "@material-ui/core/Checkbox";
+import IconButton from "@material-ui/core/IconButton";
+import Tooltip from "@material-ui/core/Tooltip";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { connect } from "react-redux";
+import * as actions from "../redux";
+import moment from "moment";
 
 const headCells = [
-  { id: "Title", numeric: false, disablePAdding: true, label: "Title" },
-  { id: "Message", numeric: false, disablePAdding: false, label: "Message" },
+  { id: "Title", numeric: false, disablePadding: true, label: "Title" },
+  { id: "Message", numeric: false, disablePadding: false, label: "Message" },
   {
     id: "Created At",
     numeric: false,
-    disablePAdding: false,
+    disablePadding: false,
     label: "Created At",
   },
 ];
@@ -25,6 +44,16 @@ function EnhancedTableHead(props) {
             inputProps={{ "aria-label": "select all notifications" }}
           />
         </TableCell>
+        {headCells.map((headCell) => (
+          <TableCell
+            key={headCell.id}
+            align={headCell.numeric ? "right" : "left"}
+            padding={headCell.disablePadding ? "none" : "default"}
+            sortDirection={false}
+          >
+            {headCell.label}
+          </TableCell>
+        ))}
       </TableRow>
     </TableHead>
   );
@@ -90,7 +119,6 @@ const EnhancedTableToolbar = (props) => {
               <IconButton
                 aria-label="delete"
                 className={classes.margin}
-                disabled={props.user.email === selected.email}
                 onClick={props.handleOpen}
               >
                 <DeleteIcon />
@@ -106,7 +134,7 @@ const EnhancedTableToolbar = (props) => {
             color={selected.admin ? "secondary" : "primary"}
             className={classes.margin}
             onClick={() => {
-              props.addNotification();
+              props.handleOpen();
             }}
           >
             Add New
@@ -143,7 +171,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function NotificationPage(props) {
-  const { rowsPerPage, notificationList, notificationsCount } = props.users;
+  const {
+    rowsPerPage,
+    notificationList,
+    notificationsCount,
+  } = props.notifications;
   const { fetchNotifications, setCount } = props;
   const classes = useStyles();
   const [selected, setSelected] = React.useState({});
@@ -198,12 +230,7 @@ function NotificationPage(props) {
       </Dialog>
       <div className={classes.root}>
         <Paper className={classes.paper}>
-          <EnhancedTableToolbar
-            selected={selected}
-            addNotification={addNotification}
-            removeAdmin={removeAdmin}
-            handleOpen={handleOpen}
-          />
+          <EnhancedTableToolbar selected={selected} handleOpen={handleOpen} />
           <TableContainer>
             <Table
               className={classes.table}

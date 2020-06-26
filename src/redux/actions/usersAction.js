@@ -1,6 +1,12 @@
 import { client } from "../../graphql/graphqlClient";
 import { setLoading, dispatchSnackbar } from "./editionActions";
-import { users, getUsersCount, makeAdmin, removeAdmin, deleteUser } from "../../graphql/query_mutation";
+import {
+  users,
+  getUsersCount,
+  makeAdmin,
+  removeAdmin,
+  deleteUser,
+} from "../../graphql/query_mutation";
 import {
   LOAD_USERS,
   SET_USER_COUNT,
@@ -60,7 +66,6 @@ export const clearUsersSearch = () => async (dispatch) => {
   });
 };
 
-
 export const updateUser = (user) => async (dispatch) => {
   dispatch({
     type: UPDATE_USER,
@@ -68,11 +73,9 @@ export const updateUser = (user) => async (dispatch) => {
   });
 };
 
-export const makeUserAdmin = (variables,) => async (
-  dispatch
-) => {
+export const makeUserAdmin = (variables) => async (dispatch) => {
   dispatch(setLoading(true));
-  
+
   client
     .mutate({
       mutation: makeAdmin,
@@ -81,13 +84,17 @@ export const makeUserAdmin = (variables,) => async (
     .then((response) => {
       dispatch(setLoading(false));
       if (response.data.makeAdmin.success) {
-        dispatch(dispatchSnackbar(`${response.data.makeAdmin.user.fullname} is now an admin`, "success"));
+        dispatch(
+          dispatchSnackbar(
+            `${response.data.makeAdmin.user.fullname} is now an admin`,
+            "success"
+          )
+        );
         return dispatch({
           type: UPDATE_USER,
           payload: response.data.makeAdmin.user,
         });
-      }
-      else{
+      } else {
         dispatch(dispatchSnackbar(`${response.data.makeAdmin.error}`, "error"));
       }
     })
@@ -98,11 +105,9 @@ export const makeUserAdmin = (variables,) => async (
     });
 };
 
-export const removeUserAdmin = (variables,) => async (
-  dispatch
-) => {
+export const removeUserAdmin = (variables) => async (dispatch) => {
   dispatch(setLoading(true));
-  
+
   client
     .mutate({
       mutation: removeAdmin,
@@ -111,14 +116,20 @@ export const removeUserAdmin = (variables,) => async (
     .then((response) => {
       dispatch(setLoading(false));
       if (response.data.removeAdmin.success) {
-        dispatch(dispatchSnackbar(`${response.data.removeAdmin.user.fullname} is no longer an admin`, "success"));
+        dispatch(
+          dispatchSnackbar(
+            `${response.data.removeAdmin.user.fullname} is no longer an admin`,
+            "success"
+          )
+        );
         return dispatch({
           type: UPDATE_USER,
           payload: response.data.removeAdmin.user,
         });
-      }
-      else{
-        dispatch(dispatchSnackbar(`${response.data.removeAdmin.error}`, "error"));
+      } else {
+        dispatch(
+          dispatchSnackbar(`${response.data.removeAdmin.error}`, "error")
+        );
       }
     })
     .catch((e) => {
@@ -128,12 +139,9 @@ export const removeUserAdmin = (variables,) => async (
     });
 };
 
-
-export const removeUser = (variables,) => async (
-  dispatch
-) => {
+export const removeUser = (variables) => async (dispatch) => {
   dispatch(setLoading(true));
-  
+
   client
     .mutate({
       mutation: deleteUser,
@@ -147,9 +155,10 @@ export const removeUser = (variables,) => async (
           type: DELETE_USER,
           payload: variables.email,
         });
-      }
-      else{
-        dispatch(dispatchSnackbar(`${response.data.deleteUser.error}`, "error"));
+      } else {
+        dispatch(
+          dispatchSnackbar(`${response.data.deleteUser.error}`, "error")
+        );
       }
     })
     .catch((e) => {

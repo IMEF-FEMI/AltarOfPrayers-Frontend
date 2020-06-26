@@ -36,27 +36,25 @@ export default function (state = initialState, action) {
         searchList: [],
       };
     case UPDATE_USER:
-      
       return {
         ...state,
         userList: state.userList.map((user) =>
-          action.payload.id === user.id
-            ? { ...action.payload }
-            : { ...user }
+          action.payload.id === user.id ? { ...action.payload } : { ...user }
         ),
         searchList: state.searchList.map((user) =>
-        action.payload.id === user.id
-          ? { ...action.payload }
-          : { ...user }
-      ),
+          action.payload.id === user.id ? { ...action.payload } : { ...user }
+        ),
       };
 
     case DELETE_USER:
-      
       return {
         ...state,
-        userList: state.userList.filter((user) => user.email !== action.payload),
-        searchList:  state.searchList.filter((user) => user.email !== action.payload),
+        userList: state.userList.filter(
+          (user) => user.email !== action.payload
+        ),
+        searchList: state.searchList.filter(
+          (user) => user.email !== action.payload
+        ),
       };
     default:
       return state;

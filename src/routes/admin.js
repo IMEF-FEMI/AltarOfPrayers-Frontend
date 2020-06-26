@@ -1,7 +1,9 @@
 import { Editions } from "../views/Editions/index";
 import Edition from "../views/Edition";
 import Prayer from "../views/Prayer";
+import NotificationsPage from "../views/NotificationsPage";
 import { Users } from "../views/Users/index";
+
 const routes = [
   { path: "/editions", name: "Editions", component: Editions },
   {
@@ -24,7 +26,7 @@ const routes = [
   {
     path: "/notifications",
     name: "Notifications",
-    component: "Notifications",
+    component: NotificationsPage,
   },
 ];
 
