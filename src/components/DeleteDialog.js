@@ -16,8 +16,8 @@ const styles = (theme) => ({
   },
 });
 function DeleteUserDialog(props) {
-  const handleDeletePrayer = () => {
-    props.deleteUser();
+  const handleDelete = () => {
+    props.handleDelete();
     props.handleClose();
   };
   const { classes } = props;
@@ -28,8 +28,8 @@ function DeleteUserDialog(props) {
       </DialogTitle>
       <DialogContent>
         <DialogContentText className={classes.dialogContentText}>
-          Are you sure You want To delete This User? This action cannot be
-          undone.
+          Are you sure You want To delete This {props.deleteText} ? This action
+          cannot be undone.
         </DialogContentText>
       </DialogContent>
       <DialogActions>
@@ -37,7 +37,7 @@ function DeleteUserDialog(props) {
           Cancel
         </Button>
 
-        <Button onClick={() => handleDeletePrayer()} color="primary" autoFocus>
+        <Button onClick={() => handleDelete()} color="primary" autoFocus>
           Delete
         </Button>
       </DialogActions>

@@ -123,6 +123,7 @@ class PrayerFields extends Component {
                 multiline
                 label="Bible Passage"
                 variant="filled"
+                rows={4}
                 fullWidth
                 value={passage}
                 onChange={this.handlePassageChange}
@@ -138,6 +139,7 @@ class PrayerFields extends Component {
                 multiline
                 label="Message"
                 variant="filled"
+                rows={4}
                 fullWidth
                 value={message}
                 onChange={this.handleMessageChange}

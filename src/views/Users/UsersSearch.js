@@ -24,7 +24,7 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import { connect } from "react-redux";
 import moment from "moment";
 import * as actions from "../../redux";
-import DeleteUserDialog from "../../components/DeleteUserDialog";
+import DeleteDialog from "../../components/DeleteDialog";
 
 const headCells = [
   { id: "Name", numeric: false, disablePadding: true, label: "Name" },
@@ -228,7 +228,7 @@ function UsersSearch(props) {
         onClose={handleClose}
         aria-labelledby="delete-confirmation"
       >
-        <DeleteUserDialog deleteUser={deleteUser} handleClose={handleClose} />
+        <DeleteDialog handleDelete={deleteUser} handleClose={handleClose} deleteText={"User"} />
       </Dialog>
       <div className={classes.root}>
         <Paper className={classes.paper}>

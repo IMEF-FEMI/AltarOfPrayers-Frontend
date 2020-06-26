@@ -5,11 +5,13 @@ import {
   SET_NOTIFICATIONS_COUNT,
   UPDATE_NOTIFICATION,
   ADD_NOTIFICATION,
+  DELETE_NOTIFICATION,
 } from "./types";
 import {
   adminNotifications,
   getNotificationsCount,
   createNotification,
+  deleteNotification,
 } from "../../graphql/query_mutation";
 
 export const loadNotifications = (variables) => async (dispatch) => {
@@ -47,23 +49,43 @@ export const setNotificationsCount = () => async (dispatch) => {
       dispatch(dispatchSnackbar(e.message, "error"));
     });
 };
-export const addNotification = () => async (dispatch) => {
+export const addNotification = (variables) => async (dispatch) => {
   client
-    .query({
-      query: createNotification,
+    .mutate({
+      mutation: createNotification,
+      variables:variables,
     })
     .then((response) => {
       if (response.data.createNotification.success)
         dispatch({
           type: ADD_NOTIFICATION,
-          payload: response.data.createNotification,
+          payload: response.data.createNotification.notification,
         });
     })
     .catch((e) => {
+      console.log(e)
       dispatch(dispatchSnackbar(e.message, "error"));
     });
 };
-
+export const removeNotification = (variables) => async (dispatch) => {
+  client
+    .mutate({
+      mutation: deleteNotification,
+      variables,
+    })
+    .then((response) => {
+      if (response.data.deleteNotification.success) {
+        dispatch(dispatchSnackbar(`Notification Removed`, "success"));
+        dispatch({
+          type: DELETE_NOTIFICATION,
+          payload: variables.id,
+        });
+      } else
+        dispatch(
+          dispatchSnackbar(`${response.data.deleteNotification.error}`, "error")
+        );
+    });
+};
 export const updateNotification = (notification) => async (dispatch) => {
   dispatch({
     type: UPDATE_NOTIFICATION,

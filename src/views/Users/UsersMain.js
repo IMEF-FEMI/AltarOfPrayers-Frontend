@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import {lighten} from "@material-ui/core/styles";
+import { lighten } from "@material-ui/core/styles";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Dialog from "@material-ui/core/Dialog";
 import Table from "@material-ui/core/Table";
@@ -24,18 +24,18 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import { connect } from "react-redux";
 import * as actions from "../../redux";
 import moment from "moment";
-import DeleteUserDialog from '../../components/DeleteUserDialog'
+import DeleteDialog from "../../components/DeleteDialog";
 
 const headCells = [
-  { id: "Name", numeric: false, disablePadding: true, label: "Name" },
-  { id: "Email", numeric: true, disablePadding: false, label: "Email" },
+  { id: "Name", align: "left", disablePadding: true, label: "Name" },
+  { id: "Email", align: "center", disablePadding: false, label: "Email" },
   {
     id: "Date Registered",
-    numeric: true,
+    align: "center",
     disablePadding: false,
     label: "Date Registered",
   },
-  { id: "Admin", numeric: true, disablePadding: false, label: "Admin" },
+  { id: "Admin", align: "right", disablePadding: false, label: "Admin" },
 ];
 
 function EnhancedTableHead(props) {
@@ -51,7 +51,7 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
+            align={headCell.align}
             padding={headCell.disablePadding ? "none" : "default"}
             sortDirection={false}
           >
@@ -234,10 +234,10 @@ function UsersMain(props) {
     props.removeAdmin(variables);
   };
 
-  const deleteUser = ()=>{
-    props.deleteUser({email: selected.email})
-  }
-  
+  const deleteUser = () => {
+    props.deleteUser({ email: selected.email });
+  };
+
   return (
     <div className="container">
       <Dialog
@@ -245,7 +245,11 @@ function UsersMain(props) {
         onClose={handleClose}
         aria-labelledby="delete-confirmation"
       >
-        <DeleteUserDialog deleteUser={deleteUser} handleClose={handleClose}  />
+        <DeleteDialog
+          handleDelete={deleteUser}
+          handleClose={handleClose}
+          deleteText={"User"}
+        />
       </Dialog>
       <div className={classes.root}>
         <Paper className={classes.paper}>
@@ -299,8 +303,8 @@ function UsersMain(props) {
                         >
                           {row.fullname}
                         </TableCell>
-                        <TableCell align="right">{row.email}</TableCell>
-                        <TableCell align="right">
+                        <TableCell align="center">{row.email}</TableCell>
+                        <TableCell align="center">
                           {moment(row.createdAt).format("DD/MM/YYYY")}
                         </TableCell>
                         <TableCell align="right">

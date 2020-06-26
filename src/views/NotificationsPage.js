@@ -22,13 +22,15 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { connect } from "react-redux";
 import * as actions from "../redux";
 import moment from "moment";
+import DeleteDialog from "../components/DeleteDialog";
+import NewNotificationDialog from "../components/NewNotificationDialog";
 
 const headCells = [
-  { id: "Title", numeric: false, disablePadding: true, label: "Title" },
-  { id: "Message", numeric: false, disablePadding: false, label: "Message" },
+  { id: "Title", align: "left", disablePadding: true, label: "Title" },
+  { id: "Message", align: "center", disablePadding: false, label: "Message" },
   {
     id: "Created At",
-    numeric: false,
+    align: "right",
     disablePadding: false,
     label: "Created At",
   },
@@ -47,7 +49,7 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
+            align={headCell.align}
             padding={headCell.disablePadding ? "none" : "default"}
             sortDirection={false}
           >
@@ -119,7 +121,7 @@ const EnhancedTableToolbar = (props) => {
               <IconButton
                 aria-label="delete"
                 className={classes.margin}
-                onClick={props.handleOpen}
+                onClick={() => props.handleOpen("delete")}
               >
                 <DeleteIcon />
               </IconButton>
@@ -133,9 +135,7 @@ const EnhancedTableToolbar = (props) => {
             size="small"
             color={selected.admin ? "secondary" : "primary"}
             className={classes.margin}
-            onClick={() => {
-              props.handleOpen();
-            }}
+            onClick={() => props.handleOpen("new")}
           >
             Add New
           </Button>
@@ -181,6 +181,7 @@ function NotificationPage(props) {
   const [selected, setSelected] = React.useState({});
   const [page, setPage] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+  const [dialogContext, setDialogContext] = React.useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -192,8 +193,9 @@ function NotificationPage(props) {
     fetchData();
   }, [notificationList, fetchNotifications, setCount]);
 
-  const handleOpen = (data) => {
+  const handleOpen = (context) => {
     setOpen(true);
+    setDialogContext(context);
   };
   const handleClose = () => {
     setOpen(false);
@@ -219,6 +221,10 @@ function NotificationPage(props) {
     rowsPerPage -
     Math.min(rowsPerPage, notificationList.length - page * rowsPerPage);
 
+  const deleteNotification = () => {
+    props.deleteNotification({ id: selected.id });
+  };
+
   return (
     <div className="container">
       <Dialog
@@ -226,7 +232,16 @@ function NotificationPage(props) {
         onClose={handleClose}
         aria-labelledby="delete-confirmation"
       >
-        {/* <DeleteUserDialog deleteUser={deleteUser} handleClose={handleClose}  /> */}
+        {dialogContext === "delete" && (
+          <DeleteDialog
+            handleDelete={deleteNotification}
+            handleClose={handleClose}
+            deleteText={"Notification"}
+          />
+        )}
+        {dialogContext === "new" && (
+          <NewNotificationDialog handleClose={handleClose} />
+        )}
       </Dialog>
       <div className={classes.root}>
         <Paper className={classes.paper}>
@@ -273,7 +288,7 @@ function NotificationPage(props) {
                         >
                           {row.title}
                         </TableCell>
-                        <TableCell align="right">{row.message}</TableCell>
+                        <TableCell align="center">{row.message}</TableCell>
                         <TableCell align="right">
                           {moment(row.createdAt).format("DD/MM/YYYY")}
                         </TableCell>

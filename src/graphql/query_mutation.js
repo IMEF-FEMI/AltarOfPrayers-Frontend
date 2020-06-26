@@ -203,7 +203,7 @@ export const deleteNotification = gql`
 `;
 export const getNotificationsCount = gql`
   query {
-    getNotificationsCount
+    notificationsCount
   }
 `;
 export const makeAdmin = gql`

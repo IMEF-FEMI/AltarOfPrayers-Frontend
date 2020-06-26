@@ -14,6 +14,7 @@ import navbarStyle from "../styles/navbarStyle";
 import { connect } from "react-redux";
 import * as actions from "../redux";
 import Input from "@material-ui/icons/Input";
+import Button from "@material-ui/core/Button";
 
 class Navbar extends Component {
   state = {
@@ -39,14 +40,23 @@ class Navbar extends Component {
   logoutButton() {
     const { logout, classes } = this.props;
     return (
-      <IconButton
-        className={classes.menuButton}
-        color="inherit"
-        aria-label="Menu"
-        onClick={logout}
-      >
-        <Input />
-      </IconButton>
+      <React.Fragment>
+        <Hidden smDown>
+          <IconButton
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="Menu"
+            onClick={logout}
+          >
+            <Input />
+          </IconButton>
+        </Hidden>
+        <Hidden mdUp>
+          <Button variant="primary" className={classes.logoutButton}>
+            Logout
+          </Button>
+        </Hidden>
+      </React.Fragment>
     );
   }
   render() {

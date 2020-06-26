@@ -2,7 +2,8 @@ import {
   LOAD_NOTIFICATIONS,
   SET_NOTIFICATIONS_COUNT,
   UPDATE_NOTIFICATION,
-  DELETE_USER,
+  DELETE_NOTIFICATION,
+  ADD_NOTIFICATION,
 } from "../actions/types";
 
 const initialState = {
@@ -18,6 +19,12 @@ export default function (state = initialState, action) {
         ...state,
         notificationList: [...state.notificationList, ...action.payload],
       };
+
+    case ADD_NOTIFICATION:
+      return {
+        ...state,
+        notificationList: [action.payload, ...state.notificationList],
+      };
     case SET_NOTIFICATIONS_COUNT:
       return {
         ...state,
@@ -32,11 +39,11 @@ export default function (state = initialState, action) {
             : { ...notification }
         ),
       };
-    case DELETE_USER:
+    case DELETE_NOTIFICATION:
       return {
         ...state,
         notificationList: state.notificationList.filter(
-          (notification) => notification.email !== action.payload
+          (notification) => notification.id !== action.payload
         ),
       };
     default:
