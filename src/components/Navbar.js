@@ -52,7 +52,7 @@ class Navbar extends Component {
           </IconButton>
         </Hidden>
         <Hidden mdUp>
-          <Button variant="primary" className={classes.logoutButton}>
+          <Button variant="primary" className={classes.logoutButton} onClick={logout}>
             Logout
           </Button>
         </Hidden>

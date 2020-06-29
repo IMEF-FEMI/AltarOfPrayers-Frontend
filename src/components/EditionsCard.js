@@ -1,20 +1,21 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
+
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
     cursor: "pointer",
-    borderRadius: '12px'
   },
   bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
   },
   title: {
     fontSize: 14,
@@ -22,16 +23,14 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
-  media: {
-    height: 100,
-  },
-  content: {
-    backgroundColor: "#9e9e9e",
-  },
+    publishedText: {
+    color: "#087f23;",
+  }
 });
 
-export default function EditionsCard(props) {
+export default function SimpleCard(props) {
   const classes = useStyles();
+  // const bull = <span className={classes.bullet}>•</span>;
   const months = {
     1: "January - March",
     4: "April - June",
@@ -40,27 +39,30 @@ export default function EditionsCard(props) {
   };
 
   return (
-    <Card className={classes.root} >
-      <CardMedia
-        className={classes.media}
-        image={require("../images/cross.jpg")}
-        title={props.edition.name}
-      />
-      <CardContent className={props.edition.published ? classes.content : ""}>
-        <Typography variant="h5" component="h3" align="center">
-          {props.edition.name}
+    <Card className={classes.root}>
+      <CardContent>
+        <Typography variant="h5" component="h2">
+        {props.edition.name}
         </Typography>
-        <Typography
+        
+         <Typography
           className={classes.pos}
           color="textSecondary"
-          align="center"
+          variant="h5"
+          component="h4"
         >
           {months[props.edition.startingMonth.toString()]}
         </Typography>
-        <Typography variant="body2" component="p" align="center">
-          {props.edition.year}
+       
+        <Typography variant="h5" component="h2">
+        {props.edition.year}
+          <br />
+        
         </Typography>
       </CardContent>
+      <CardActions>
+        <Button size="small" className={classes.publishedText}>Published</Button>
+      </CardActions>
     </Card>
   );
 }
