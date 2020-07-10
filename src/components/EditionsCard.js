@@ -61,7 +61,7 @@ export default function SimpleCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" className={classes.publishedText}>Published</Button>
+        <Button size="small" className={classes.publishedText}>{props.edition.published? "Published":"Not Yet Published"}</Button>
       </CardActions>
     </Card>
   );
