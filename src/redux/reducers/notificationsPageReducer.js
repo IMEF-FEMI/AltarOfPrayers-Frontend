@@ -10,13 +10,17 @@ const initialState = {
   notificationList: [],
   notificationsCount: 0,
   rowsPerPage: 10,
+  initialFetch: true,
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case LOAD_NOTIFICATIONS:
+      console.log(action.payload);
+
       return {
         ...state,
+        initialFetch: false,
         notificationList: [...state.notificationList, ...action.payload],
       };
 

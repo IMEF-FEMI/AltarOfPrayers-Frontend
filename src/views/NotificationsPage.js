@@ -175,6 +175,7 @@ function NotificationPage(props) {
     rowsPerPage,
     notificationList,
     notificationsCount,
+    initialFetch
   } = props.notifications;
   const { fetchNotifications, setCount } = props;
   const classes = useStyles();
@@ -185,13 +186,13 @@ function NotificationPage(props) {
 
   useEffect(() => {
     async function fetchData() {
-      if (notificationList.length === 0) {
+      if (notificationList.length === 0 && initialFetch) {
         await fetchNotifications({ first: 10 });
         await setCount();
       }
     }
     fetchData();
-  }, [notificationList, fetchNotifications, setCount]);
+  }, [notificationList, fetchNotifications, setCount, initialFetch]);
 
   const handleOpen = (context) => {
     setOpen(true);

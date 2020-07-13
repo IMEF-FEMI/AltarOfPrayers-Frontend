@@ -23,7 +23,9 @@ export const loadNotifications = (variables) => async (dispatch) => {
     })
     .then((response) => {
       dispatch(setLoading(false));
-      dispatch({
+      console.log(response.data);
+      
+      return dispatch({
         type: LOAD_NOTIFICATIONS,
         payload: response.data.adminNotifications,
       });
