@@ -201,6 +201,7 @@ function NotificationPage(props) {
   const handleClose = () => {
     setOpen(false);
   };
+  
   const handleClick = (event, row) => {
     if (row === selected) {
       return setSelected({});

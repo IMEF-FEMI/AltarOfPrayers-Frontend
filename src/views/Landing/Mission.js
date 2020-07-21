@@ -25,8 +25,8 @@ const styles = (theme) => ({
     fontSize: "24px",
     lineHeight: "40px",
   },
-  text:{
-      textAlign: 'center'
+  text: {
+    textAlign: "center",
   },
   about: {
     fontFamily: "librebaskerville-italic, serif",
@@ -53,8 +53,11 @@ const Mission = ({ classes }) => {
             <p className={classes.text}>
               To build a consistent and effective prayer life without struggle
             </p>
-            <p className={classes.text}>To set the captive free Restore hope to the hopeless</p>
-            <p className={classes.text}>Set many feet on the pedestal of success</p>
+            <p className={classes.text}>To set the captive free </p>
+            <p className={classes.text}>Restore hope to the hopeless</p>
+            <p className={classes.text}>
+              Set many feet on the pedestal of success
+            </p>
           </div>
         </div>
       </main>

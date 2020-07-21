@@ -4,11 +4,11 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
 import playStore from "../../images/icons/google-play.svg";
-import appStore from "../../images/icons/apple-store.svg";
+// import appStore from "../../images/icons/apple-store.svg";
 import Typist from "react-typist";
 
-// import PrayerImg from "../../images/prayer-dark.jpg";
-import PrayerImg from "../../images/prayer-light.jpg";
+import PrayerImg from "../../images/prayer-dark.jpg";
+// import PrayerImg from "../../images/prayer-light.jpg";
 
 const styles = (theme) => ({
   root: {
@@ -26,9 +26,9 @@ const styles = (theme) => ({
     justifyContent: "center",
     fontSize: "calc(10px + 2vmin)",
   },
-  storeButtons:{
-    marginTop: theme.spacing(3)
-  },
+  // storeButtons:{
+  //   marginTop: theme.spacing(3)
+  // },
   storeButton:{
     padding: theme.spacing(1)
   },
@@ -60,9 +60,11 @@ const Heading = ({ classes }) => {
         <h1 className={classes.intro}>Altar Of Prayers</h1>
         <div className={classes.tagline}>
           <Typist>{"A Dynamic Daily Prayer Guide"}</Typist>
+          <h6>By</h6>
+          <h5>Pst J.S. Akande</h5>
         </div>
         <Grid container justify="center" className={classes.storeButtons}>
-        <Grid item className={classes.storeButton}>
+        {/* <Grid item className={classes.storeButton}>
           <div className="button-row">
             <a href="http://play.google.com" className="real-button-store">
               <span className="badge-store">
@@ -72,7 +74,7 @@ const Heading = ({ classes }) => {
               <span className="caption">App Store</span>
             </a>
           </div>
-        </Grid>
+        </Grid> */}
         <Grid item className={classes.storeButton}>
           <div className="button-row">
             <a href="http://play.google.com" className="real-button-store">
