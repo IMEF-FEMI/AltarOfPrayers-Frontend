@@ -5,7 +5,7 @@ import { ApolloClient, InMemoryCache } from "apollo-boost";
 
 
   const httpLink = createHttpLink({
-    uri: `ec2-3-23-126-86.us-east-2.compute.amazonaws.com/graphql/`,
+    uri: `http://http://13.58.15.192/graphql/`,
   });
   
   const authLink = setContext((_, { headers }) => {
