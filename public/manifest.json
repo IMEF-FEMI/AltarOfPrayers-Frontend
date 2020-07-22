@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Altar of Prayers",
+  "name": "A Dynamic Daily Prayer Guide by Pst J.S. Akande",
   "icons": [
     {
       "src": "favicon.ico",

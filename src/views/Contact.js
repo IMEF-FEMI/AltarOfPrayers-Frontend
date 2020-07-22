@@ -16,7 +16,7 @@ const Contact = ({ classes }) => {
       <Fade in timeout={1500}>
         <Paper className={classes.padding}>
           <form
-            action="https://formspree.io/altarofprayersteam@gmail.com"
+            action="https://formspree.io/xlepajbv"
             method="POST"
             autoComplete="off"
           >
