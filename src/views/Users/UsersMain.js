@@ -132,7 +132,7 @@ const EnhancedTableToolbar = (props) => {
           >
             {selected.admin ? "Remove Admin" : "Make Admin"}
           </Button>
-          <Tooltip title="Delete">
+          {/* <Tooltip title="Delete">
             <span>
               <IconButton
                 aria-label="delete"
@@ -143,7 +143,7 @@ const EnhancedTableToolbar = (props) => {
                 <DeleteIcon />
               </IconButton>
             </span>
-          </Tooltip>
+          </Tooltip> */}
         </Grid>
       ) : (
         <Tooltip title="Filter list">

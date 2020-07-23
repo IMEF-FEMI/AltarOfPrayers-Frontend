@@ -14,3 +14,5 @@
 5. Redux
 
 
+## 📸 Demo
+|<img src="src/images/altar.png">|
