@@ -22,14 +22,17 @@ const About = ({ classes }) => {
         <Grid item className={classes.padding}></Grid>
         <Grid item>
           <Typography variant="body1" className={classes.body}>
-            Lorem ipsum dolor sit amet, meliore minimum percipitur ne per, eos
-            lobortorquatos contentiones cu. Vero assum viris ne ius, ne mollis
-            disputando mel. Ex senserit iracundia nec. Tale oblique mea id,
-            exerci delenit no usu. Id vix cetero verear. Cu eum paulo
-            platonem.Eum quem prodesset no, sit id tollit tamquam veritus. At
-            vis novum dolorum. An usudolor habemus conclusionemque, mei ei mazim
-            sententiae, diam commodo assentior melid. Et commune efficiendi
-            ullamcorper eos, ad his atqui commodo.{" "}
+            Pastor James S. Akande is a minister of the Gospel, who i called
+            with a specific instruction from God to salvage His people and make
+            captains out of captives. {"\n"}
+            He has presented in this package a daily devotional prayers with
+            prophetic declaration that can build a consistent and effective
+            prayer life without struggle. His teachings and minitration have set
+            captives free, restored hope to the hopeless and set many feet on
+            the pedestal of success. He is the General overseer of COVENANT OF
+            RESTORATION MINISTRIES (City of Truth), he is happily married to
+            Lara and they are blessed with four children Salem, Gospel, Shammah
+            and Great King
           </Typography>
         </Grid>
       </Grid>

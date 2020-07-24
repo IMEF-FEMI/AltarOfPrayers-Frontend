@@ -53,7 +53,7 @@ input[type=search]:not(.browser-default),
 
 
 #testimonials {
-	background: #1F1F1F url(./images/testimonials-bg.jpg) no-repeat center center;
+	background: #1F1F1F url(./images/testimonials-bg.jpg) no-repeat center center fixed;
 	background-size: cover !important;
 	 -webkit-background-size: cover !important;
 	background-attachment: fixed;
@@ -70,6 +70,8 @@ input[type=search]:not(.browser-default),
  #testimonials h1 {
 	font: 18px/24px 'opensans-bold', sans-serif;
 	text-transform: uppercase;
+	text-align: center;
+	font-size: 30;
 	letter-spacing: 3px;
 	color: #fff;
  }
@@ -102,7 +104,7 @@ input[type=search]:not(.browser-default),
  #testimonials blockquote p {
 	font-family: 'librebaskerville-italic', serif;
 	padding: 0;
-	font-size: 24px;
+	font-size: 18px;
 	line-height: 48px;
 	color: #fff
  }
