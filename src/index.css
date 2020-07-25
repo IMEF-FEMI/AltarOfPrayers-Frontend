@@ -53,7 +53,7 @@ input[type=search]:not(.browser-default),
 
 
 #testimonials {
-	background: #1F1F1F url(./images/testimonials-bg.jpg) no-repeat center center fixed;
+	background: #1F1F1F url(./images/testimonials-bg.jpg) no-repeat center fixed;
 	background-size: cover !important;
 	 -webkit-background-size: cover !important;
 	background-attachment: fixed;
