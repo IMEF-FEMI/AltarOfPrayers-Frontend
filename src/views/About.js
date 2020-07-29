@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Header from "../components/Header";
 import aboutStyle from "../styles/aboutStyle";
-import author_pic from "../images/1.png";
+import author_pic from "../images/pastor.jpg";
 
 const About = ({ classes }) => {
   return (
@@ -14,14 +14,14 @@ const About = ({ classes }) => {
       <Grid container direction="column" justify="center" alignItems="center">
         <Grid item className={classes.padding}>
           <Avatar
-            alt="my daughter and I"
+            alt="Pastor J.s."
             src={author_pic}
             className={classes.avatar}
           />
         </Grid>
         <Grid item className={classes.padding}></Grid>
         <Grid item>
-          <Typography variant="body1" className={classes.body}>
+          <Typography variant="body1" className={classes.body} align="justify">
             Pastor James S. Akande is a minister of the Gospel, who i called
             with a specific instruction from God to salvage His people and make
             captains out of captives. {"\n"}
