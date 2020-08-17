@@ -77,7 +77,7 @@ const Heading = ({ classes }) => {
         </Grid> */}
         <Grid item className={classes.storeButton}>
           <div className="button-row">
-            <a href="http://play.google.com" className="real-button-store">
+            <a href="https://github.com/IMEF-FEMI/AltarOfPrayers-Mobile/raw/master/ss/app.apk" className="real-button-store">
               <span className="badge-store">
                 <img className="" alt="google-play" src={playStore} />
               </span>
