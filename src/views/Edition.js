@@ -155,6 +155,7 @@ class Edition extends Component {
             <EditEditionDialog
               editionId={data.edition.id}
               name={data.edition.name}
+              photoUrl={data.edition.photoUrl}
               startingMonth={data.edition.startingMonth}
               year={data.edition.year}
               handleClose={handleClose}

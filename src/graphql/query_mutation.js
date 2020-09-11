@@ -24,13 +24,14 @@ export const loginUser = gql`
 `;
 
 export const addEdition = gql`
-  mutation createEdition($name: String!, $startingMonth: Int!, $year: Int!) {
-    createEdition(name: $name, startingMonth: $startingMonth, year: $year) {
+  mutation createEdition($name: String!, $photoUrl: String!, $startingMonth: Int!, $year: Int!) {
+    createEdition(name: $name, photoUrl: $photoUrl, startingMonth: $startingMonth, year: $year) {
       success
       error
       edition {
         id
         name
+        photoUrl
         published
         startingMonth
         year
@@ -43,12 +44,14 @@ export const updateEdition = gql`
   mutation updateEdition(
     $editionId: Int!
     $name: String!
+    $photoUrl: String
     $startingMonth: Int!
     $year: Int!
   ) {
     updateEdition(
       editionId: $editionId
       name: $name
+      photoUrl: $photoUrl
       startingMonth: $startingMonth
       year: $year
     ) {
@@ -57,6 +60,7 @@ export const updateEdition = gql`
       edition {
         id
         name
+        photoUrl
         published
         startingMonth
         year
@@ -115,6 +119,7 @@ export const editions = gql`
     editions(search: $search, first: $first, skip: $skip) {
       id
       name
+      photoUrl
       published
       startingMonth
       year
@@ -127,6 +132,7 @@ export const edition = gql`
     edition(id: $id) {
       id
       name
+      photoUrl
       published
       startingMonth
       year

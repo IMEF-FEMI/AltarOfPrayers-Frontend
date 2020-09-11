@@ -54,6 +54,7 @@ const DialogTitle = (props) => {
 function NewEditionDialog(props) {
   const { classes } = props;
   const [title, setTitle] = React.useState("");
+  const [photoUrl, setPhotoUrl] = React.useState("");
   const [month, setMonth] = React.useState("");
   const [year, setYear] = React.useState("");
   const [valid, setValid] = React.useState(false);
@@ -63,6 +64,9 @@ function NewEditionDialog(props) {
   const handleMonthChange = (event) => {
     setMonth(event.target.value);
   };
+  const handleURLChange = (event) => {
+    setPhotoUrl(event.target.value);
+  };
   const handleYearChange = (event) => {
     setYear(event.target.value);
   };
@@ -70,7 +74,7 @@ function NewEditionDialog(props) {
     setTitle(event.target.value);
   };
   const addNewEdition = () => {
-    props.addEdition({ name: title, startingMonth: month, year: year });
+    props.addEdition({ name: title, startingMonth: month, year: year, photoUrl:photoUrl });
     props.handleClose()
   };
   useEffect(() => {
@@ -87,7 +91,7 @@ function NewEditionDialog(props) {
         New Edition
       </DialogTitle>
       <DialogContent>
-        <TextField
+      <TextField
           multiline
           autoFocus
           margin="dense"
@@ -96,6 +100,16 @@ function NewEditionDialog(props) {
           type="email"
           value={title}
           onChange={handleTitleChange}
+          fullWidth
+        />
+         <TextField
+          multiline
+          margin="dense"
+          id="photo_url"
+          label="Photo url"
+          type="text"
+          value={photoUrl}
+          onChange={handleURLChange}
           fullWidth
         />
         <Select

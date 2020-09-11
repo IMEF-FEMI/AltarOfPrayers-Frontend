@@ -10,7 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
-import withStyles  from "@material-ui/core/styles/withStyles";
+import withStyles from "@material-ui/core/styles/withStyles";
 import { Mutation } from "react-apollo";
 import { updateEdition } from "../graphql/query_mutation";
 import { connect } from "react-redux";
@@ -56,6 +56,7 @@ const DialogTitle = (props) => {
 function EditEditionDialog(props) {
   const { classes } = props;
   const [title, setTitle] = React.useState(props.name);
+  const [photoUrl, setPhotoUrl] = React.useState(props.photoUrl);
   const [month, setMonth] = React.useState(props.startingMonth);
   const [year, setYear] = React.useState(props.year);
   const [valid, setValid] = React.useState(true);
@@ -64,6 +65,9 @@ function EditEditionDialog(props) {
 
   const handleMonthChange = (event) => {
     setMonth(event.target.value);
+  };
+  const handleURLChange = (event) => {
+    setPhotoUrl(event.target.value);
   };
   const handleYearChange = (event) => {
     setYear(event.target.value);
@@ -79,10 +83,12 @@ function EditEditionDialog(props) {
     const valid = month !== "" && year !== "" && title !== "";
     setValid(valid);
   }, [title, month, year]);
+
   const getEditionVariables = () => {
     const variables = {
       editionId: props.editionId,
       name: title,
+      photoUrl: photoUrl,
       startingMonth: month,
       year: year,
     };
@@ -108,6 +114,16 @@ function EditEditionDialog(props) {
           type="email"
           value={title}
           onChange={handleTitleChange}
+          fullWidth
+        />
+        <TextField
+          multiline
+          margin="dense"
+          id="photo_url"
+          label="Photo url"
+          type="text"
+          value={photoUrl}
+          onChange={handleURLChange}
           fullWidth
         />
         <Select
@@ -152,16 +168,20 @@ function EditEditionDialog(props) {
           mutation={updateEdition}
           variables={getEditionVariables()}
           onError={(e) => {
-            props.enqueNotification(e.message.split(':')[1], 'error')
+            props.enqueNotification(e.message.split(":")[1], "error");
           }}
           update={(store) => {
-            props.enqueNotification('Update Successful', 'success')
+            props.enqueNotification("Update Successful", "success");
             props.updateStoreAfterEditionUpdate(store);
           }}
         >
           {(updateEdition) => (
             <Button
-              onClick={() => handleUpdateEdition(updateEdition)}
+              onClick={() => {
+                props.setLoading(true);
+                handleUpdateEdition(updateEdition);
+                
+              }}
               color="primary"
               disabled={!valid}
             >
@@ -176,21 +196,26 @@ function EditEditionDialog(props) {
 const mapActionToProps = (dispatch) => {
   return {
     enqueNotification: (message, variant) => {
-      dispatch(actions.enqueueSnackbar({
-        message: message,
-        options: {
-          key: new Date().getTime() + Math.random(),
-          variant: variant,
-          action: (key) => (
-            <Button
-              style={{ color: "#fff" }}
-              onClick={() => dispatch(actions.closeSnackbar(key))}
-            >
-              dismiss
-            </Button>
-          ),
-        },
-      }));
+      dispatch(
+        actions.enqueueSnackbar({
+          message: message,
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: variant,
+            action: (key) => (
+              <Button
+                style={{ color: "#fff" }}
+                onClick={() => dispatch(actions.closeSnackbar(key))}
+              >
+                dismiss
+              </Button>
+            ),
+          },
+        })
+      );
+    },
+    setLoading: (val) => {
+      dispatch(actions.setLoading(val));
     },
   };
 };
