@@ -302,6 +302,7 @@ const mapActionToProps = (dispatch) => {
     closeSnackbar: (...args) => dispatch(actions.closeSnackbar(...args)),
   };
 };
+
 export default connect(
   mapStateToProps,
   mapActionToProps

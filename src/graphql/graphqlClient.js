@@ -5,8 +5,8 @@ import { ApolloClient, InMemoryCache } from "apollo-boost";
 
 
   const httpLink = createHttpLink({
-    // uri: `https://altarofprayers.com/graphql/`,
-    uri: `http://192.168.43.74:8000/graphql/`,
+    uri: `https://altarofprayers.com/graphql/`,
+    // uri: `http://192.168.43.74:8000/graphql/`,
   });
   
   const authLink = setContext((_, { headers }) => {
